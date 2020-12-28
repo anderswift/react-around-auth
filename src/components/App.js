@@ -14,7 +14,7 @@ import Footer from './Footer';
 function App() {
 
   const [isTooltipSuccessOpen, showTooltipSuccess]= useState(false);
-  const [isTooltipErrorOpen, showTooltipError]= useState(true);
+  const [isTooltipErrorOpen, showTooltipError]= useState(false);
   
 
   const closeAllTooltips= () => {
@@ -29,7 +29,7 @@ function App() {
         <Header />
 
         <Switch>
-          <ProtectedRoute exact path="/" loggedIn={false} component={AroundTheUS} />
+          <ProtectedRoute exact path="/" loggedIn={true} component={AroundTheUS} />
 
           <Route path="/signin">
             <Login />

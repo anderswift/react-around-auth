@@ -6,7 +6,7 @@ function FormField(props) {
         type={props.type === undefined ? 'text' : props.type} 
         name={props.name}
         id={props.name} 
-        className={`modal__input modal__input_type_${props.name}${props.error && ' modal__input_type_error'}`} 
+        className={`form__input${props.isModal ? ' modal__input' : ''}${props.error ? ' form__input_type_error': ''}`} 
         aria-label={props.label} 
         placeholder={props.label} 
         minLength={props.minMax ? props.minMax[0] : undefined}
@@ -14,7 +14,7 @@ function FormField(props) {
         value={props.value} 
         onChange={props.handleChange}
         required />
-      <span className={`modal__error${props.error && ' modal__error_active'}`} id={`${props.name}-error`}>{props.error}</span>
+      <span className={`form__error${props.error ? ' form__error_active' : ''}`}>{props.error}</span>
     </>
   );
 }

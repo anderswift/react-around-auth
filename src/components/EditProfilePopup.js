@@ -57,8 +57,8 @@ function EditProfilePopup({isOpen, isSaving, onClose, onSubmit}) {
     <PopupWithForm heading="Edit profile" name="profile" isOpen={isOpen} onClose={onClose} onReset={handleReset}
       submitText={isSaving ? 'Saving...' : 'Save'} submitReady={submitReady} onSubmit={handleSubmit}>
 
-      <FormField name="profile-name" label="Name" minMax={[2, 40]} handleChange={handleChange} value={values.name} error={errors.name} />
-      <FormField name="profile-about" label="About me" minMax={[2, 200]} handleChange={handleChange} value={values.about} error={errors.about}  />
+      <FormField isModal={true} name="profile-name" label="Name" minMax={[2, 40]} handleChange={handleChange} value={values.name} error={errors.name} />
+      <FormField isModal={true} name="profile-about" label="About me" minMax={[2, 200]} handleChange={handleChange} value={values.about} error={errors.about}  />
     
     </PopupWithForm>
   );

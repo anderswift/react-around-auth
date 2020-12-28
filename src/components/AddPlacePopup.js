@@ -44,8 +44,8 @@ function AddPlacePopup({isOpen, isSaving, onClose, onSubmit}) {
     <PopupWithForm heading="New place" name="photo" isOpen={isOpen} onClose={onClose} onReset={handleReset}
       submitText={isSaving ? 'Saving...' : 'Create'} submitReady={submitReady} onSubmit={handleSubmit}>
 
-      <FormField name="photo-name" label="Title" minMax={[2, 30]} error={errors.name} handleChange={handleChange} />
-      <FormField name="photo-link" type="url" label="Image link" error={errors.link} handleChange={handleChange} />
+      <FormField isModal={true} name="photo-name" label="Title" minMax={[2, 30]} error={errors.name} handleChange={handleChange} />
+      <FormField isModal={true} name="photo-link" type="url" label="Image link" error={errors.link} handleChange={handleChange} />
 
     </PopupWithForm>
   );

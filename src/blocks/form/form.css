@@ -1,16 +1,23 @@
 @import url(./__heading/form__heading.css);
 @import url(./__input/form__input.css);
+@import url(./__input/_type/_error/form__input_type_error.css);
 @import url(./__button/form__button.css);
 @import url(./__text/form__text.css);
+@import url(./__error/form__error.css);
+@import url(./__error/_active/form__error_active.css);
+
+
 
 .form {
-  max-width: 358px;
-  margin: 60px auto;
-  text-align: center;
+  width: 358px;
+  max-width: calc(100% -36px);
   height: calc(100vh - 324px);
-  box-sizing: border-box;
+  min-height: 320px;
+  margin: 60px auto;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 

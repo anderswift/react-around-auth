@@ -48,7 +48,6 @@ function AroundTheUS() {
     if(e.key === 'Escape') { 
       closeAllPopups(); 
 
-      // wasn't sure how else to do this, without DOM query? But form should reset here, as it does when pressing x button to close
       document.querySelector('.popup_active .modal').reset(); 
     }
   }

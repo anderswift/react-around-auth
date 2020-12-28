@@ -6,6 +6,8 @@
 @import url(./__button/modal__button.css);
 @import url(./__button/_disabled/modal__button_disabled.css);
 
+
+
 .modal {
 	background: #fff;
 	color: #000;

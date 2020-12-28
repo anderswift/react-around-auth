@@ -22,5 +22,7 @@
 @import url(./blocks/popup/_dark/popup_dark.css);
 
 @import url(./blocks/modal/modal.css);
+@import url(./blocks/modal/_tooltip/modal_tooltip_success.css);
+@import url(./blocks/modal/_tooltip/modal_tooltip_error.css);
 
 @import url(./blocks/photo-viewer/photo-viewer.css);

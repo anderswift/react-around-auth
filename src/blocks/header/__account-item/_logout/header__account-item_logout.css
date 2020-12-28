@@ -1,0 +1,7 @@
+.header__account-item_logout {
+  opacity: .6;
+}
+
+.header__account-item_logout:hover, .header__account-item_logout:focus {
+  opacity: 1;
+}

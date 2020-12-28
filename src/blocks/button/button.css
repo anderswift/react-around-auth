@@ -2,7 +2,8 @@
   transition: opacity .25s ease-in-out;
 	border: none;
 	outline: none;
-	cursor: pointer;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 .button:hover, .button:focus {

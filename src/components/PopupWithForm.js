@@ -8,7 +8,7 @@ function PopupWithForm(props) {
         
         {props.children}
         
-        <button type="submit" className={`button form__button modal__button modal__button_type_save${!props.submitReady && ' modal__button_disabled'}`} name={`${props.name}-submit`}>{props.submitText}</button>
+        <button type="submit" className={`button form__button modal__button modal__button_type_save${!props.submitReady && ' form__button_disabled modal__button_disabled'}`} name={`${props.name}-submit`}>{props.submitText}</button>
         
         <button type="reset" className="popup__exit button" aria-label="Close" onClick={props.onClose}></button>
       </form>

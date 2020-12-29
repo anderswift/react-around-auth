@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 import PopupWithForm from './PopupWithForm';
@@ -17,6 +16,7 @@ function AddPlacePopup({isOpen, isSaving, onClose, onSubmit}) {
   function handleChange(e) {
     const name= e.target.name.split('-').pop();
     setValues({...values, [name]: e.target.value });
+    
     if(e.target.validity.valid) {
       const updatedErrors= {...errors, [name]: '' }
       setErrors(updatedErrors);

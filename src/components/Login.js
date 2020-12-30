@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { auth } from '../utils/authApi.js';
-
 import FormField from './FormField';
 
 
 
-function Login({onLogin, onError}) {
+function Login({handleLogin, isLoading}) {
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
@@ -32,14 +30,10 @@ function Login({onLogin, onError}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    auth.login(values)
-      .then((res) => {
-        onLogin(res.data);
-      })
+    handleLogin(values)
       .catch(() => {
         setValues({...values, password: '' });
         setSubmitReady(false);
-        onError();
       });
   }
 
@@ -56,7 +50,9 @@ function Login({onLogin, onError}) {
       <FormField name="login-password" type="password" label="Password" handleChange={handleChange} 
         value={values.password} error={errors.password} />
       
-      <button type="submit" className={`form__button${submitReady ? '' : ' form__button_disabled'}`} name="login-submit">Log in</button>
+      <button type="submit" className={`form__button${submitReady ? '' : ' form__button_disabled'}`} name="login-submit">
+        {isLoading ? 'Loading...' : 'Log in'}
+      </button>
       <Link to="/signup" className="form__text link">Not a member yet? Sign up here!</Link>
 
     </form>

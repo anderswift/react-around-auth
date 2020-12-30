@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { auth } from '../utils/authApi.js';
-
 import FormField from './FormField';
 
 
 
-function Register({onRegister, onError}) {
+function Register({handleRegister, isLoading}) {
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
@@ -32,13 +30,7 @@ function Register({onRegister, onError}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    auth.register(values)
-      .then((res) => {
-        onRegister(res.data);
-      })
-      .catch(() => {
-        onError();
-      });
+    handleRegister(values);
   }
 
 
@@ -54,7 +46,9 @@ function Register({onRegister, onError}) {
       <FormField name="signup-password" type="password" label="Password" minMax={[10, 256]} 
         handleChange={handleChange} value={values.password} error={errors.password} />
       
-      <button type="submit" className={`form__button${submitReady ? '' : ' form__button_disabled'}`} name="login-submit">Sign up</button>
+      <button type="submit" className={`form__button${submitReady ? '' : ' form__button_disabled'}`} name="login-submit">
+        {isLoading ? 'Loading...' : 'Sign up'}
+      </button>
       <Link to="/signin" className="form__text link">Already a member? Log in here!</Link>
 
     </form>

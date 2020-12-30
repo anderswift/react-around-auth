@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
+import { auth } from '../utils/authApi.js';
 import { AccountContext } from '../contexts/AccountContext.js';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -29,28 +30,46 @@ function App() {
 
 
   const closeAllTooltips= () => {
+    if(isTooltipInvalidOpen) {
+      showTooltipInvalid(false);
+      // focus cursor on password field if credentials incorrect
+      document.getElementById('login-password').focus();
+    }
     showTooltipSuccess(false);
     showTooltipError(false);
-    showTooltipInvalid(false);
+    
   }
 
-  const handleRegister= (data) => {
-    showTooltipSuccess(true);
-    handleLogin(data);
+  const handleRegister= (credentials) => {
+    setIsLoading(true);
+    auth.register(credentials)
+      .then((res) => {
+        showTooltipSuccess(true);
+        setLoggedIn(true);
+        setAccountData(res.data);
+        history.push('/');
+        setIsLoading(false);
+      })
+      .catch(() => {
+        showTooltipError(true);
+        setIsLoading(false);
+      });
   }
 
-  const handleRegistrationError= () => {
-    showTooltipError(true);
-  }
-
-  const handleLogin= (data) => {
-    setLoggedIn(true);
-    setAccountData(data);
-    history.push('/');
-  }
-
-  const handleInvalidLogin= () => {
-    showTooltipInvalid(true);
+  const handleLogin= (credentials) => {
+    setIsLoading(true);
+    return auth.login(credentials)
+      .then((res) => {
+        setLoggedIn(true);
+        setAccountData(res.data);
+        history.push('/');
+        setIsLoading(false);
+      })
+      .catch(() => {
+        showTooltipInvalid(true);
+        setIsLoading(false);
+        return Promise.reject();
+      });
   }
 
   const handleLogout= () => {
@@ -69,11 +88,11 @@ function App() {
           <ProtectedRoute exact path="/" component={AroundTheUS} />
 
           <Route path="/signin">
-            <Login onLogin={handleLogin} onError={handleInvalidLogin} />
+            <Login handleLogin={handleLogin} isLoading={isLoading} />
           </Route>
 
           <Route path="/signup">
-            <Register onRegister={handleRegister} onError={handleRegistrationError} />
+            <Register handleRegister={handleRegister} isLoading={isLoading} />
           </Route>
 
           <Route>

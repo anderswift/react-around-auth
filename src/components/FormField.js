@@ -13,6 +13,7 @@ function FormField(props) {
         maxLength={props.minMax ? props.minMax[1] : undefined} 
         value={props.value} 
         onChange={props.handleChange}
+        autoComplete={props.type === 'password' ? `around-the-us ${props.name}` : ''}
         required />
       <span className={`form__error${props.error ? ' form__error_active' : ''}`}>{props.error}</span>
     </>

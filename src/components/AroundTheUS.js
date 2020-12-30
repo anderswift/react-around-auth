@@ -123,7 +123,6 @@ function AroundTheUS() {
       .then((updatedCard) => {
         const newCards = cards.map((c) => c._id === card._id ? updatedCard : c);  
         setCards(newCards);
-        console.log(likeButtonRef);
         likeButtonRef.current.blur(); // prevents button from staying selected and highlighted after action completes
       })
       .catch((err) => {

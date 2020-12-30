@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { AccountContext } from '../contexts/AccountContext';
@@ -9,26 +9,43 @@ import logo from '../images/logo.svg';
 function Header({handleLogout}) {
 
   const accountContext = useContext(AccountContext);
+  const [showMenu, setShowMenu]= useState(false);
+  const menuToggle= useRef();
+
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+    menuToggle.current.blur();
+  }
 
 
 
   return (
     <header className="header">
+      
       <img className="header__logo" src={logo} alt="Around The U.S." />
-      <div className="header__account-menu"> 
-        {accountContext.loggedIn === true && 
+      
+      <ul className={`header__account-menu ${accountContext.loggedIn ? 'header__account-menu_logged-in ' : ''}${showMenu ? 'header__account-menu_active ' : ''}list`}>
+        {accountContext.loggedIn ?
           <>
-            <div className="header__account-item">{accountContext.accountData.email}</div>
-            <button className="header__account-item header__account-item_logout button" onClick={handleLogout}>Log out</button>
+            <li><div className="header__account-item header__account-item_logged-in">{accountContext.accountData.email}</div></li>
+            <li><button className="header__account-item header__account-item_logged-in header__account-logout button" onClick={handleLogout}>Log out</button></li>
+          </>
+          :
+          <>
+            <li>
+              <NavLink activeStyle={{ display: 'none' }} to="/signup" className="header__account-item link">Sign up</NavLink>
+            </li>
+            <li>
+              <NavLink activeStyle={{ display: 'none' }} to="/signin" className="header__account-item link">Log in</NavLink>
+            </li>
           </>
         }
-        {accountContext.loggedIn === false && 
-          <>
-            <NavLink activeStyle={{ display: 'none' }} to="/signup" className="header__account-item link">Sign up</NavLink>
-            <NavLink activeStyle={{ display: 'none' }} to="/signin" className="header__account-item link">Log in</NavLink>
-          </>
-        }
-      </div>     
+      </ul>
+      {accountContext.loggedIn === true && 
+        <button ref={menuToggle} className={`header__menu-toggle ${showMenu ? 'header__menu-toggle_selected ' : ''}button`} onClick={toggleMenu} aria-label="Show Menu"></button>
+      }
+ 
     </header>   
   );
   

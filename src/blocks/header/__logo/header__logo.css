@@ -1,6 +1,16 @@
 .header__logo {
 	width: 126px;
-	height: 24px;
+  height: 24px;
+  margin: 27px 0 0 30px;
+  grid-area: logo;
+  padding-bottom: 32px;
+}
+
+@media screen and (min-width: 480px) {
+  .header__logo {
+    margin: 0;
+  }
+
 }
 
 

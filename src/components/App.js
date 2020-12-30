@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 import { AccountContext } from '../contexts/AccountContext.js';
 import ProtectedRoute from './ProtectedRoute';
@@ -14,6 +14,8 @@ import Footer from './Footer';
 
 
 function App() {
+
+  const history = useHistory();
 
   const [loggedIn, setLoggedIn]= useState(false);
   const [accountData, setAccountData]= useState({ _id: '', email: ''});
@@ -32,8 +34,9 @@ function App() {
     showTooltipInvalid(false);
   }
 
-  const handleRegister= () => {
+  const handleRegister= (data) => {
     showTooltipSuccess(true);
+    handleLogin(data);
   }
 
   const handleRegistrationError= () => {
@@ -43,6 +46,7 @@ function App() {
   const handleLogin= (data) => {
     setLoggedIn(true);
     setAccountData(data);
+    history.push('/');
   }
 
   const handleInvalidLogin= () => {

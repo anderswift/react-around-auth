@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { auth } from '../utils/authApi.js';
 
@@ -8,8 +8,6 @@ import FormField from './FormField';
 
 
 function Login({onLogin, onError}) {
-
-  const history = useHistory();
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
@@ -37,14 +35,12 @@ function Login({onLogin, onError}) {
     auth.login(values)
       .then((res) => {
         onLogin(res.data);
-        history.push('/');
       })
       .catch(() => {
         setValues({...values, password: '' });
         setSubmitReady(false);
         onError();
       });
-    
   }
 
 
@@ -68,4 +64,4 @@ function Login({onLogin, onError}) {
   
 }
 
-export default withRouter(Login);
+export default Login;

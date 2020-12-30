@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { auth } from '../utils/authApi.js';
 
 import FormField from './FormField';
 
 
 
-function Register({onSubmit}) {
+function Register({onRegister, onError}) {
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
@@ -30,7 +32,13 @@ function Register({onSubmit}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(values);
+    auth.register(values)
+      .then((res) => {
+        onRegister(res.data);
+      })
+      .catch(() => {
+        onError();
+      });
   }
 
 

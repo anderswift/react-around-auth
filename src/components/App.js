@@ -16,7 +16,7 @@ import Footer from './Footer';
 function App() {
 
   const [loggedIn, setLoggedIn]= useState(false);
-  const [accountData, setAccountData]= useState({ _id: '', email: 'test@gmail.com'});
+  const [accountData, setAccountData]= useState({ _id: '', email: ''});
 
   const [isLoading, setIsLoading]= useState(false);
 
@@ -40,8 +40,9 @@ function App() {
     showTooltipError(true);
   }
 
-  const handleLogin= () => {
+  const handleLogin= (data) => {
     setLoggedIn(true);
+    setAccountData(data);
   }
 
   const handleInvalidLogin= () => {
@@ -49,7 +50,6 @@ function App() {
   }
 
   const handleLogout= () => {
-    console.log('LOGOUT');
     setLoggedIn(false);
   }
 

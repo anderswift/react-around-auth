@@ -36,8 +36,7 @@ function Login({onLogin, onError}) {
     e.preventDefault();
     auth.login(values)
       .then((res) => {
-        console.log(res);
-        onLogin();
+        onLogin(res.data);
         history.push('/');
       })
       .catch(() => {

@@ -16,14 +16,13 @@ function Header({handleLogout}) {
     <header className="header">
       <img className="header__logo" src={logo} alt="Around The U.S." />
       <div className="header__account-menu"> 
-      <p>{accountContext.loggedIn ? 'logged in' : 'logged out'}</p>
-        { accountContext.loggedIn === true && 
+        {accountContext.loggedIn === true && 
           <>
             <div className="header__account-item">{accountContext.accountData.email}</div>
             <button className="header__account-item header__account-item_logout button" onClick={handleLogout}>Log out</button>
           </>
         }
-        { accountContext.loggedIn === false && 
+        {accountContext.loggedIn === false && 
           <>
             <NavLink activeStyle={{ display: 'none' }} to="/signup" className="header__account-item link">Sign up</NavLink>
             <NavLink activeStyle={{ display: 'none' }} to="/signin" className="header__account-item link">Log in</NavLink>

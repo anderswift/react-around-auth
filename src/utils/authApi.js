@@ -12,11 +12,23 @@ class AuthApi {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(data)
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      } 
+    })
+    .then(res => {
+      if (res.ok) return res.json();
       return Promise.reject(`Error: ${res.status}`);
+    })
+    .then(data => {
+      return fetch(this._baseUrl + 'users/me', {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${data.token}`
+        }
+      }).then(res => {
+        if (res.ok) return res.json();
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      
     }); 
   }
 

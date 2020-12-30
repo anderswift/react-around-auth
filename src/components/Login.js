@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
+
+import { auth } from '../utils/authApi.js';
 
 import FormField from './FormField';
 
 
 
-function Login() {
+function Login({onLogin, onError}) {
+
+  const history = useHistory();
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
@@ -28,17 +32,36 @@ function Login() {
     }
   } 
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    auth.login(values)
+      .then((res) => {
+        console.log(res);
+        onLogin();
+        history.push('/');
+      })
+      .catch(() => {
+        setValues({...values, password: '' });
+        setSubmitReady(false);
+        onError();
+      });
+    
+  }
 
-  
+
+
   return (
-    <form name="login-form" className="form">
+    <form name="login-form" className="form" onSubmit={handleSubmit}>
         
       <h3 className="form__heading">Log in</h3>
 
-      <FormField name="login-email" label="Email" handleChange={handleChange}  value={values.email} error={errors.email} />
-      <FormField name="login-password" type="password" label="Password" handleChange={handleChange} value={values.password} error={errors.password} />
+      <FormField name="login-email" label="Email" handleChange={handleChange} 
+        value={values.email} error={errors.email} />
+
+      <FormField name="login-password" type="password" label="Password" handleChange={handleChange} 
+        value={values.password} error={errors.password} />
       
-      <button type="submit" className={`form__button${!submitReady ? ' form__button_disabled' : ''}`} name="login-submit">Log in</button>
+      <button type="submit" className={`form__button${submitReady ? '' : ' form__button_disabled'}`} name="login-submit">Log in</button>
       <Link to="/signup" className="form__text link">Not a member yet? Sign up here!</Link>
 
     </form>
@@ -46,4 +69,4 @@ function Login() {
   
 }
 
-export default Login;
+export default withRouter(Login);

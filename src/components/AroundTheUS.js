@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
+
 import { api } from '../utils/api.js';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import avatar from '../images/avatar.png'; // default avatar (black 1 pixel)
 
 import Main from './Main';
-
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeletePlacePopup from './DeletePlacePopup';
-
 import PopupWithImage from './PopupWithImage';
+
+
 
 function AroundTheUS() {
 

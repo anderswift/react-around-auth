@@ -1,12 +1,17 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+
 import FormField from './FormField';
 
-function Register() {
+
+
+function Register({onSubmit}) {
 
   const [values, setValues]= useState({ email: '', password: '' });
   const [errors, setErrors]= useState({});
   const [submitReady, setSubmitReady]= useState(false);
+
+
 
   function handleChange(e) {
     const name= e.target.name.split('-').pop();
@@ -23,10 +28,15 @@ function Register() {
     }
   } 
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit(values);
+  }
+
 
 
   return (
-    <form name="register-form" className="form">
+    <form name="register-form" className="form" onSubmit={handleSubmit}>
         
       <h3 className="form__heading">Sign up</h3>
 

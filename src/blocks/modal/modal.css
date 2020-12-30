@@ -18,10 +18,10 @@
   text-align: left;
 }
 
-@media screen and (min-width: 450px) {
+
+@media screen and (min-width: 460px) {
 	
 	.modal {
-		
 		padding: 36px;
 	}
 	

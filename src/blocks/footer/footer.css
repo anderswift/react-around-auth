@@ -1,9 +1,8 @@
 .footer {
-	margin: 0 auto 36px auto;
+	margin: 0 30px 36px 30px;
 	color: #545454;
 	font-size: 14px;
 	line-height: 17px;
-	width: 282px;
 }
 
 
@@ -22,7 +21,8 @@
 @media screen and (min-width: 918px) {
 
 	.footer {
-		width: 882px;
+    width: 882px;
+    margin: 0 20px 36px 20px;
 	}
 
 }

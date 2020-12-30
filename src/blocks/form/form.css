@@ -11,7 +11,7 @@
 
 .form {
   width: 358px;
-  max-width: calc(100% -36px);
+  max-width: calc(100% - 60px);
   height: calc(100vh - 324px);
   min-height: 320px;
   margin: 60px auto;

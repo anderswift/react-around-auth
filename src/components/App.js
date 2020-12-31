@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 import { auth } from '../utils/authApi.js';
@@ -45,9 +45,7 @@ function App() {
     auth.register(credentials)
       .then((res) => {
         showTooltipSuccess(true);
-        setLoggedIn(true);
-        setAccountData(res.data);
-        history.push('/');
+        login(res.data);
         setIsLoading(false);
       })
       .catch(() => {
@@ -60,9 +58,7 @@ function App() {
     setIsLoading(true);
     return auth.login(credentials)
       .then((res) => {
-        setLoggedIn(true);
-        setAccountData(res.data);
-        history.push('/');
+        login(res.data);
         setIsLoading(false);
       })
       .catch(() => {
@@ -73,8 +69,29 @@ function App() {
   }
 
   const handleLogout= () => {
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
   }
+
+  const login= (userData) => {
+    setLoggedIn(true);
+    setAccountData(userData);
+    history.push('/');
+  }
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth.checkToken(token).then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setAccountData(res.data);
+          history.push('/');
+        }
+      });
+    }
+  }, []);
 
 
 

@@ -21,25 +21,25 @@ function AroundTheUS() {
   const [selectedCard, selectCard]= useState({});
   const [isSaving, setIsSaving]= useState(false);
 
-  const [isProfilePopupOpen, showProfilePopup]= useState(false);
-  const [isAvatarPopupOpen, showAvatarPopup]= useState(false);
-  const [isAddPlacePopupOpen, showAddPlacePopup]= useState(false);
-  const [isDeletePlacePopupOpen, showDeletePlacePopup]= useState(false);
-  const [isImagePopupOpen, showImagePopup]= useState(false);
+  const [isProfilePopupOpen, setIsProfilePopupOpen]= useState(false);
+  const [isAvatarPopupOpen, setIsAvatarPopupOpen]= useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen]= useState(false);
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen]= useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen]= useState(false);
 
 
 
-  const handleEditAvatarClick= () => { showAvatarPopup(true); setListener(true); }
-  const handleEditProfileClick= () => { showProfilePopup(true); setListener(true); }
-  const handleAddPlaceClick= () => { showAddPlacePopup(true); setListener(true); }
+  const handleEditAvatarClick= () => { setIsAvatarPopupOpen(true); setListener(true); }
+  const handleEditProfileClick= () => { setIsProfilePopupOpen(true); setListener(true); }
+  const handleAddPlaceClick= () => { setIsAddPlacePopupOpen(true); setListener(true); }
 
   const closeAllPopups= () => {
-    showAvatarPopup(false);
-    showProfilePopup(false);
-    showAddPlacePopup(false);
-    showDeletePlacePopup(false);
+    setIsAvatarPopupOpen(false);
+    setIsProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsDeletePlacePopupOpen(false);
 
-    showImagePopup(false);
+    setIsImagePopupOpen(false);
     setTimeout(() => { selectCard({}); }, 200); // wait until fade animation completes before removing selected card data
     
     setListener(false);
@@ -61,13 +61,13 @@ function AroundTheUS() {
 
   const handleCardClick= (card) => {
     selectCard(card);
-    showImagePopup(true);
+    setIsImagePopupOpen(true);
     setListener(true);
   }
 
   const handleDeleteClick= (card) => {
     selectCard(card);
-    showDeletePlacePopup(true);
+    setIsDeletePlacePopupOpen(true);
     setListener(true);
   }
 

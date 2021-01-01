@@ -45,10 +45,8 @@ function EditProfilePopup({isOpen, isSaving, onClose, onSubmit}) {
 
   
   useEffect(() => { 
-    if(currentUser.name && currentUser.about) { 
-      setValues({ name: currentUser.name, about: currentUser.about }); // prevent undefined value on controlled form field
-      setSubmitReady(true);
-    }
+    setValues({ name: currentUser.name, about: currentUser.about });
+    setSubmitReady(true);
   }, [currentUser]); 
   
 

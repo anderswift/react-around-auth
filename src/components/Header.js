@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { AccountContext } from '../contexts/AccountContext';
@@ -10,12 +10,11 @@ function Header({handleLogout}) {
 
   const accountContext = useContext(AccountContext);
   const [showMenu, setShowMenu]= useState(false);
-  const menuToggle= useRef();
 
 
-  const toggleMenu = () => {
+  const toggleMenu = (e) => {
     setShowMenu(!showMenu);
-    menuToggle.current.blur();
+    e.target.blur();
   }
 
 
@@ -43,7 +42,7 @@ function Header({handleLogout}) {
         }
       </ul>
       {accountContext.loggedIn === true && 
-        <button ref={menuToggle} className={`header__menu-toggle ${showMenu ? 'header__menu-toggle_selected ' : ''}button`} onClick={toggleMenu} aria-label="Show Menu"></button>
+        <button className={`header__menu-toggle ${showMenu ? 'header__menu-toggle_selected ' : ''}button`} onClick={toggleMenu} aria-label="Show Menu"></button>
       }
  
     </header>   

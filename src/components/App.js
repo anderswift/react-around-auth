@@ -23,33 +23,41 @@ function App() {
 
   const [isLoading, setIsLoading]= useState(false);
 
-  const [isTooltipSuccessOpen, showTooltipSuccess]= useState(false);
-  const [isTooltipErrorOpen, showTooltipError]= useState(false);
-  const [isTooltipInvalidOpen, showTooltipInvalid]= useState(false);
+  const [isTooltipSuccessOpen, setIsTooltipSuccessOpen]= useState(false);
+  const [isTooltipErrorOpen, setIsTooltipErrorOpen]= useState(false);
+  const [isTooltipInvalidOpen, setIsTooltipInvalidOpen]= useState(false);
 
 
 
   const closeAllTooltips= () => {
-    if(isTooltipInvalidOpen) {
-      showTooltipInvalid(false);
-      // focus cursor on password field if credentials incorrect
-      document.getElementById('login-password').focus();
-    }
-    showTooltipSuccess(false);
-    showTooltipError(false);
-    
+    setIsTooltipInvalidOpen(false);
+    setIsTooltipSuccessOpen(false);
+    setIsTooltipErrorOpen(false);
+    setListener(false);
+  }
+
+  const closeOnEsc= (e) => { 
+    if(e.key === 'Escape') closeAllTooltips(); 
+  }
+
+  const setListener= (listen) => {
+    listen ?
+      document.addEventListener('keyup', closeOnEsc) :
+      document.removeEventListener('keyup', closeOnEsc);
   }
 
   const handleRegister= (credentials) => {
     setIsLoading(true);
     auth.register(credentials)
       .then((res) => {
-        showTooltipSuccess(true);
+        setIsTooltipSuccessOpen(true);
         login(res.data);
-        setIsLoading(false);
       })
       .catch(() => {
-        showTooltipError(true);
+        setIsTooltipErrorOpen(true);
+      })
+      .finally(() => {
+        setListener(true);
         setIsLoading(false);
       });
   }
@@ -62,7 +70,8 @@ function App() {
         setIsLoading(false);
       })
       .catch(() => {
-        showTooltipInvalid(true);
+        setIsTooltipInvalidOpen(true);
+        setListener(true);
         setIsLoading(false);
         return Promise.reject();
       });

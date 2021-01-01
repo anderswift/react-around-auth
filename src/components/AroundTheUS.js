@@ -46,10 +46,8 @@ function AroundTheUS() {
   }
 
   const closeOnEsc= (e) => { 
-    if(e.key === 'Escape') { 
+    if(e.key === 'Escape') {
       closeAllPopups(); 
-
-      document.querySelector('.popup_active .modal').reset(); 
     }
   }
 
@@ -117,13 +115,13 @@ function AroundTheUS() {
     });
   }
 
-  const likeUnlikeCard= (card, likeButtonRef) => {
+  const likeUnlikeCard= (card, e) => {
     const currentUserLikes= card.likes.some(user => user._id === currentUser._id);
     api.updateLikes(card._id, !currentUserLikes)
       .then((updatedCard) => {
         const newCards = cards.map((c) => c._id === card._id ? updatedCard : c);  
         setCards(newCards);
-        likeButtonRef.current.blur(); // prevents button from staying selected and highlighted after action completes
+        e.target.blur(); // prevents button from staying selected and highlighted after action completes
       })
       .catch((err) => {
         console.log(err);

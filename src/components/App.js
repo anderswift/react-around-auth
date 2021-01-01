@@ -73,7 +73,6 @@ function App() {
         setIsTooltipInvalidOpen(true);
         setListener(true);
         setIsLoading(false);
-        return Promise.reject();
       });
   }
 
